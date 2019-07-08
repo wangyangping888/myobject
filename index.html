@@ -1,0 +1,64 @@
+<html>
+
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<style type="text/css">
+			#demo {
+				/*width: 500;
+				height: 500;*/
+				border:solid 1px red;
+				margin: 0px auto;
+				display: block;
+			}
+		</style>
+		<canvas id="demo" width="500" height="500" ;></canvas>
+		<input type="range" min="1" max="50" id="size" value="1" />
+		<input type="color"  id="color" />
+		<script type="text/javascript">
+			var canvas = document.querySelector("#demo");
+			var pen = canvas.getContext("2d");
+			var flag=false;
+			
+			//			pen.fillStyle="pink";
+			//			pen.fillRect(0,0,50,50);
+			//  		pen.strokeStyle="red";
+			//  		pen.moveTo(0,0);
+			//  		pen.lineTo(50,25);
+			//  		pen.lineTo(0,25);
+			//  		pen.lineTo(0,0);
+			//  		pen.stroke();
+			//  		pen.fillStyle="pink";
+			//  		pen.fill();
+			//			pen.strokeStyle="pink";
+			//			pen.beginPath();
+			//			pen.arc(95,50,40,0,2*Math.PI);
+			//			pen.stroke();
+			canvas.onmousedown = function(e){
+				flag=true;
+				pen.beginPath();
+			}
+			canvas.onmousemove = function(e){
+				if(flag){
+					var x=e.pageX-this.offsetLeft;
+					var y=e.pageY-this.offsetTop;
+					pen.lineTo(x,y);
+					pen.stroke();
+				}
+			}
+			canvas.onmouseup = function(e){
+				flag=false;
+				pen.closePath();
+			}
+			document.querySelector("#size").onchange = function(){
+				pen.lineWidth=this.value;
+			}
+			document.querySelector("#color").onchange = function(){
+				pen.strokeStyle=this.value;
+			}
+		</script>
+	</body>
+
+</html>
